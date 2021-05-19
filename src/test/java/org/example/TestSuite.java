@@ -8,7 +8,7 @@ public class TestSuite extends BaseTest
     HomePage homePage = new HomePage();
     RegisterPage registerPage = new RegisterPage();
     RegisterResultPage registerResultPage = new RegisterResultPage();
-    SeachNike seachNike = new SeachNike();
+    SearchNike searchNike = new SearchNike();
     NewOnlinePage newOnlinePage = new NewOnlinePage();
     ComputerPage computerPage = new ComputerPage();
     SoftwarePage softwarePage = new SoftwarePage();
@@ -21,20 +21,22 @@ public class TestSuite extends BaseTest
         registerPage.enterRegistrationDetails();
         //verify registration success message
         registerResultPage.verifyRegisterMessage();
-
     }
     @Test
     public void userShouldBeAbleToChangeTheCurrency()
-
-    {   //click on currency field
+    {   //verifying currency symbol
+        homePage.verifyCurrencySymbolFromEachPrice();
+        //click on currency field
         homePage.clickOnCurrencyField();
+        //verifying currency symbol
+        homePage.verifyCurrencySymbolFromEachPrice();
     }
     @Test
     public void userShouldBeAbleToSearchProductSuccessfully()
     {   //typing name in search field
         homePage.typeInSearchField();
         //clicking search button after typing product name
-        seachNike.searchNikeName();
+        searchNike.searchNikeName();
     }
     @Test
     public void addToCartButtonShouldBePresentInAllProduct()
@@ -44,7 +46,7 @@ public class TestSuite extends BaseTest
         //clicking on software
         computerPage.clickOnSoftware();
         //checking add to cart button is present
-        softwarePage.addToCartButtonLocation();
+        softwarePage.verifyAddToCartButtonPresent();
     }
     @Test
     public void commentMessageAddedSuccessfully()
@@ -56,6 +58,10 @@ public class TestSuite extends BaseTest
         registerResultPage.verifyCommentAddedSuccessfully();
         //checking comment added in comments section
         registerResultPage.verifyCommentPresentInComments();
+        //verifying comment
+        registerResultPage.verifyComment();
+        //verifying comment box
+        registerResultPage.commentBoxVerification();
     }
 
 

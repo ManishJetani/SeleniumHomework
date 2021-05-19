@@ -37,9 +37,32 @@ public class Utils extends BasePage
         Select select = new Select(driver.findElement(by));
         select.selectByValue(text);
     }
+    //method for getSelectedTextFromDropdown
+    public static String getSelectedTextFromDropdown(By by)
+    {
+        Select select = new Select(driver.findElement(by));
+        return select.getFirstSelectedOption().getText();
+    }
+    //method for getting currency symbol
+    public static String getCurrencySymbol(String currencyName)
+    {
+        String currencySymbol = null;
+        switch (currencyName)
+        {
+            case "US Dollar":
+                currencySymbol = "$";
+                break;
+            case "Euro":
+                currencySymbol = "€";
+                break;
+            default:
+                System.out.println("Currency is not recognised");
+        }
+        return currencySymbol;
+    }
     //method for getTextFromElement
     public static String getTextFromElement(By by)
-    {
+        {
       return   driver.findElement(by).getText();
     }
     //method for timestamp

@@ -6,36 +6,46 @@ import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
 
 public class RegisterPage extends Utils
-{
+{   LoadProperty loadProperty = new LoadProperty();
+    private By _radioButton = By.id("gender-male");
+    private By _firstName = By.id("FirstName");
+    private By _lastName = By.id("LastName");
+    private By _dateOfBirth = By.name("DateOfBirthDay");
+    private By _monthOfBirth = By.name("DateOfBirthMonth");
+    private By _yearOfBirth = By.name("DateOfBirthYear");
+    private By _email = By.id("Email");
+    private By _companyName = By.name("Company");
+    private By _password = By.name("Password");
+    private By _confirmPassword = By.name("ConfirmPassword");
+    private By _clickOnRegister = By.id("register-button");
     public void enterRegistrationDetails()
     {   //timestamp for current time - to create unique email value each time we run the program
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//      driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
         //wait for clickable element
-        waitForClickable(By.id("register-button"),5000);
+//      waitForClickable(By.id("register-button"),5000);
 //      waitForElementToBeVisible(By.xpath("//div[contains(text(),'FirstName']"),50);
-//      sleep(5000);
+        sleep(5000);
         //click on Male or Female button
-        clickOnElement(By.id("gender-male"));
+        clickOnElement(_radioButton);
         //Type FirstName
-        enterText(By.id("FirstName"),"Boris");
+        enterText(_firstName,loadProperty.getProperty("firstName"));
         //Type LastName
-        enterText(By.id("LastName"),"Johnson");
+        enterText(_lastName, loadProperty.getProperty("lastName"));
         //Select Day of Date of Birth
-        selectFromDropdownByValue(By.name("DateOfBirthDay"),"15");
+        selectFromDropdownByValue(_dateOfBirth, loadProperty.getProperty("dateOfBirth"));
         //Select Month of Birth
-        selectFromDropdownByVisibleText(By.name("DateOfBirthMonth"),"April");
+        selectFromDropdownByVisibleText(_monthOfBirth, loadProperty.getProperty("monthOfBirth"));
         //Select Year of Birth
-        selectFromDropdownByIndex(By.name("DateOfBirthYear"),59);
+        selectFromDropdownByValue(_yearOfBirth,loadProperty.getProperty("yearOfBirth"));
         //Type Email address
-        enterText(By.id("Email"),"borisjohnson"+timestamp.getTime()+"@gmail.com");
+        enterText(_email,loadProperty.getProperty("email")+timestamp.getTime()+"@gmail.com");
         //Type Company name
-        enterText(By.name("Company"),"Conservative Plc.");
+        enterText(_companyName,loadProperty.getProperty("companyName"));
         //Type Password
-        enterText(By.name("Password"),"112233");
+        enterText(_password,loadProperty.getProperty("password"));
         //Confirm Password
-        enterText(By.name("ConfirmPassword"),"112233");
+        enterText(_confirmPassword,loadProperty.getProperty("confirmPassword"));
         //Click on Register
-        clickOnElement(By.id("register-button"));
+        clickOnElement(_clickOnRegister);
     }
 }

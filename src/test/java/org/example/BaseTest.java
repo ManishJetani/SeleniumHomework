@@ -11,7 +11,8 @@ public class BaseTest extends Utils
     @BeforeMethod
     public void openBrowser() {
         //setting up chromedriver path from Resources
-        System.setProperty("webdriver.chrome.driver", "src\\test\\Resources\\Browser\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/BrowserDriver/chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "src\\test\\Resources\\Browser\\chromedriver.exe");
         //creating object for driver
         driver = new ChromeDriver();
         //maximize the browser window

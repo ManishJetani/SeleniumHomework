@@ -1,30 +1,35 @@
 package org.example;
 
-import com.sun.deploy.security.SelectableSecurityManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SoftwarePage extends Utils
-{public void addToCartButtonLocation()
-    {  //printing product name
-//       list(By.xpath("//h2[@class='product-title']"));
-//       list(By.xpath("//button[@class='button-2 product-box-add-to-cart-button']"));
-        ArrayList<String> list = new ArrayList<>();
-          list.add("list(By.xpath(\"//h2[@class='product-title']\"))");
-       for(String s : list)
-        {
-            s.contains("add to cart");
-       }
+{   private By _itemBoxesField = By.className("item-box");
+    private By _addToCartButtonField = By.cssSelector("button.button-2.product-box-add-to-cart-button");
+    private By _productNameField = By.cssSelector("h2.product-title");
 
-//            if (getTextFromElement(By.xpath("//button[@class='button-2 product-box-add-to-cart-button']")).contains("//button[@class='button-2 product-box-add-to-cart-button']"))
-//        if(getTextFromElement(By.xpath("//button[@class='button-2 product-box-add-to-cart-button']")).contains("Add to cart"))
-//        {
-//            System.out.println();
-//        }
-//        else
-//        {
-//            System.out.println(getTextFromElement(By.xpath("//h2[@class='product-title']")).contains("Add to cart"));
-//        }
-}}
+    public void verifyAddToCartButtonPresent()
+    {   //finding number of items
+        List<WebElement> webElementList = driver.findElements(_itemBoxesField);
+        int count = 0, noButton = 0;
+        //getting list of item box
+        for (WebElement element : webElementList)
+        {
+            if (element.findElements(_addToCartButtonField).size() == 1)
+            {
+                count++;
+            }
+            if (element.findElements(_addToCartButtonField).size() != 1)
+            {
+                noButton++;
+                System.out.println("In " +element.findElement(_productNameField).getText() + " : Add to Cart Button is not present");
+            }
+        }
+        //asserting expected with actual size
+        Assert.assertEquals(count, webElementList.size(),"Add to cart button should be "+ webElementList.size()+ " but it is "+count+"\n");
+        System.out.println("Add to Cart Button present in each product on this Page");
+    }
+}
